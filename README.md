@@ -18,10 +18,12 @@ Instruções para execução do programa:
 1. Clone este repositório.
 
 2. Abra o terminal e mude para a localização do mesmo utilizando o comando `cd`.
-Por exemplo: se o repositório está em C:/, no Windows, acesse-o com `cd C:/genetic-algorithm`.
+
+* Por exemplo: se o repositório está em C:/, no Windows, acesse-o com `cd C:/genetic-algorithm`.
 
 3. Execute este comando para compilar os códigos fonte e gerar o executável:
-`gcc -Wall headers/* src/* main.c -o main`
+
+* `gcc -Wall headers/* src/* main.c -o main`
 
 4. Por fim, basta iniciar o programa:
 `main`
