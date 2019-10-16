@@ -1,6 +1,6 @@
 # genetic-algorithm
 
-## Implementação de um algoritmo genético para a disciplina de Inteligência Artificial. 
+**Implementação de um algoritmo genético para a disciplina de Inteligência Artificial.**
 
 Detalhes do algoritmo genético:
 
