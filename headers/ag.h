@@ -6,10 +6,10 @@
 // Inclui o arquivo das definições de uma população.
 #include "populacao.h"
 
-int* mutacao(int*);
-Individuo* modelar(Individuo*);
-Populacao* crossover(Individuo*, Individuo*, Populacao*);
-Individuo* torneio(Populacao*);
-int* transferirGenes(int*, int*, int*, int);
+int *mutacao(int *);
+Individuo *modelar(Individuo *);
+Populacao *crossover(Individuo *, Individuo *, Populacao *);
+Individuo *torneio(Populacao *);
+int *transferirGenes(int *, int *, int *, int);
 
 #endif // AG_H_INCLUDED

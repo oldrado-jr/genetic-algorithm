@@ -8,14 +8,14 @@
 
 typedef struct T_Populacao
 {
-    Individuo** individuos;  // Array de indivíduos.
-    int somatorioFitness;  // Somatório da função fitness de toda população.
+    Individuo **individuos; // Array de indivíduos.
+    int somatorioFitness;   // Somatório da função fitness de toda população.
 } Populacao;
 
-Populacao* criarPopulacao();
-Populacao* adicionarIndividuo(Individuo*, Populacao*);
-int buscarNaPopulacao(int, int, Populacao*);
-void imprimirPopulacao(Populacao*);
-void destruirPopulacao(Populacao**);
+Populacao *criarPopulacao();
+Populacao *adicionarIndividuo(Individuo *, Populacao *);
+int buscarNaPopulacao(int, int, Populacao *);
+void imprimirPopulacao(Populacao *);
+void destruirPopulacao(Populacao **);
 
 #endif // POPULACAO_H_INCLUDED

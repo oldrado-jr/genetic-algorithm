@@ -8,20 +8,17 @@
  * probabilidade de 1% de sofrer mutação, ou seja, de um bit ser
  * alterado. A função retorna a referência dos genes já alterados.
  */
-int* mutacao(int* genes)
-{
-    if (genes)
-    {
-        const float PROB_MUTACAO = 0.01;
-        int i;
+int *mutacao(int *genes) {
+    if (!genes)
+        return NULL;
 
-        for (i = 0; i < MAX_GENES; i++)
-        {
-            float prob = (float) rand() / RAND_MAX;  // Sorteia um valor entre 0 e 1.
+    const float PROB_MUTACAO = 0.01;
 
-            if (prob < PROB_MUTACAO)
-                genes[i] = genes[i] == 0 ? 1 : 0;
-        }
+    for (int i = 0; i < MAX_GENES; i++) {
+        float prob = (float)rand() / RAND_MAX; // Sorteia um valor entre 0 e 1.
+
+        if (prob < PROB_MUTACAO)
+            genes[i] = genes[i] == 0 ? 1 : 0;
     }
 
     return genes;
@@ -31,8 +28,7 @@ int* mutacao(int* genes)
  * das restrições. Recebe como parâmetro o indivíduo a ser modelado e,
  * em seguida, retorna-se a referência do mesmo.
  */
-Individuo* modelar(Individuo* individuo)
-{
+Individuo *modelar(Individuo *individuo) {
     individuo->genesX = mutacao(individuo->genesX);
     int dec = binToDec(individuo->genesX, individuo->negativoX);
 
@@ -61,78 +57,52 @@ Individuo* modelar(Individuo* individuo)
  * simplesmente cópias de seus pais. A função retorna a referência de uma
  * população, contendo os dois novos indivíduos na mesma.
  */
-Populacao* crossover(Individuo* pai1, Individuo* pai2, Populacao* populacao)
-{
-    if (pai1 && pai2 && populacao)
-    {
-        if (pai1->cromossomo && pai2->cromossomo)
-        {
-            const float PROB_CROSSOVER = 0.6;
-            int i, corte;
-            Individuo* filho;
+Populacao *crossover(Individuo *pai1, Individuo *pai2, Populacao *populacao) {
+    if (!(pai1 && pai2 && populacao) || !(pai1->cromossomo && pai2->cromossomo))
+        return NULL;
 
-            /* Em ambos os casos, a combinação será feita duas vezes: pai1 e pai2, e depois,
-             * pai2 e pai1. Cada combinação terá uma certa probabilidade de ser um crossover.
-             */
-            float prob = (float) rand() / RAND_MAX;
+    const float PROB_CROSSOVER = 0.6;
+    int corte;
+    Individuo *filho;
 
-            if (prob < PROB_CROSSOVER)
-            {
-                for (i = 0; i < MAX_FILHOS; i++)
-                {
-                    filho = criarIndividuo();
+    /* Em ambos os casos, a combinação será feita duas vezes: pai1 e pai2, e depois,
+    * pai2 e pai1. Cada combinação terá uma certa probabilidade de ser um crossover.
+    */
+    float prob = (float)rand() / RAND_MAX;
 
-                    if (filho)
-                    {
-                        if (i == 0)
-                        {
-                            corte = rand() % MAX_CORTES;
-                            filho->genesX = transferirGenes(pai1->genesX, pai2->genesX, filho->genesX, corte);
-                            filho->genesY = transferirGenes(pai1->genesY, pai2->genesY, filho->genesY, corte);
-                        }
-                        else
-                        {
-                            filho->genesX = transferirGenes(pai2->genesX, pai1->genesX, filho->genesX, corte);
-                            filho->genesY = transferirGenes(pai2->genesY, pai1->genesY, filho->genesY, corte);
-                        }
+    for (int i = 0; i < MAX_FILHOS; i++) {
+        filho = criarIndividuo();
 
-                        filho = modelar(filho);
-                        filho = atualizarIndividuo(filho);
-                        populacao = adicionarIndividuo(filho, populacao);
-                    }
-                }
+        if (!filho)
+            continue;
+
+        corte = rand() % MAX_CORTES;
+
+        if (i == 0) {
+            if (prob < PROB_CROSSOVER) {
+                filho->genesX = transferirGenes(pai1->genesX, pai2->genesX, filho->genesX, corte);
+                filho->genesY = transferirGenes(pai1->genesY, pai2->genesY, filho->genesY, corte);
+            } else {
+                filho->genesX = pai1->genesX;
+                filho->genesY = pai1->genesY;
+                filho->negativoX = pai1->negativoX;
+                filho->negativoY = pai1->negativoY;
             }
-            else
-            {
-                for (i = 0; i < MAX_FILHOS; i++)
-                {
-                    filho = criarIndividuo();
-
-                    if (filho)
-                    {
-                        // Nesse caso, como os filhos serão clones dos pais, então terão o mesmo sinal.
-                        if (i == 0)
-                        {
-                            filho->genesX = pai1->genesX;
-                            filho->genesY = pai1->genesY;
-                            filho->negativoX = pai1->negativoX;
-                            filho->negativoY = pai1->negativoY;
-                        }
-                        else
-                        {
-                            filho->genesX = pai2->genesX;
-                            filho->genesY = pai2->genesY;
-                            filho->negativoX = pai2->negativoX;
-                            filho->negativoY = pai2->negativoY;
-                        }
-
-                        filho = modelar(filho);
-                        filho = atualizarIndividuo(filho);
-                        populacao = adicionarIndividuo(filho, populacao);
-                    }
-                }
+        } else {
+            if (prob < PROB_CROSSOVER) {
+                filho->genesX = transferirGenes(pai2->genesX, pai1->genesX, filho->genesX, corte);
+                filho->genesY = transferirGenes(pai2->genesY, pai1->genesY, filho->genesY, corte);
+            } else {
+                filho->genesX = pai2->genesX;
+                filho->genesY = pai2->genesY;
+                filho->negativoX = pai2->negativoX;
+                filho->negativoY = pai2->negativoY;
             }
         }
+
+        filho = modelar(filho);
+        filho = atualizarIndividuo(filho);
+        populacao = adicionarIndividuo(filho, populacao);
     }
 
     return populacao;
@@ -142,14 +112,13 @@ Populacao* crossover(Individuo* pai1, Individuo* pai2, Populacao* populacao)
  * escolhidos aleatoriamente. Recebe como parâmetro a população onde será feito o
  * torneio. A função retorna o indivíduo que possuir o melhor índice fitness.
  */
-Individuo* torneio(Populacao* populacao)
-{
+Individuo *torneio(Populacao *populacao) {
     Individuo *candidato1, *candidato2;
     candidato1 = populacao->individuos[rand() % MAX_INDIVIDUOS];
 
     do
         candidato2 = populacao->individuos[rand() % MAX_INDIVIDUOS];
-    while (candidato1 == candidato2);  // Evita que o mesmo candidato seja sorteado.
+    while (candidato1 == candidato2); // Evita que o mesmo candidato seja sorteado.
 
     return candidato1->fitness > candidato2->fitness ? candidato1 : candidato2;
 }
@@ -159,15 +128,12 @@ Individuo* torneio(Populacao* populacao)
  * e a posição do corte. A função retorna a referência dos genes do filho,
  * devidamente preenchido.
  */
-int* transferirGenes(int* genesPai1, int* genesPai2, int* genesFilho, int corte)
-{
-    if (genesPai1 && genesPai2 && genesFilho)
-    {
-        int i;
+int *transferirGenes(int *genesPai1, int *genesPai2, int *genesFilho, int corte) {
+    if (!(genesPai1 && genesPai2 && genesFilho))
+        return NULL;
 
-        for (i = 0; i < MAX_GENES; i++)
-            genesFilho[i] = i <= corte ? genesPai1[i] : genesPai2[i];
-    }
+    for (int i = 0; i < MAX_GENES; i++)
+        genesFilho[i] = i <= corte ? genesPai1[i] : genesPai2[i];
 
     return genesFilho;
 }

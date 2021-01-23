@@ -6,8 +6,8 @@
 // Inclui o arquivo das definições de uma população.
 #include "populacao.h"
 
-Populacao** inicializar();
-Populacao* populacaoInicial();
-Populacao* novaPopulacao(Populacao*);
+Populacao **inicializar();
+Populacao *populacaoInicial();
+Populacao *novaPopulacao(Populacao *);
 
 #endif // TESTE_H_INCLUDED
