@@ -13,17 +13,11 @@ Detalhes do algoritmo genético:
 * Seleção por torneio.
 * 15 gerações.
 
-Instruções para execução do programa:
+* Para compilar o programa e gerar o executável:
+`gcc -Wall -c src/* && gcc *.o -o main -lm`
 
-1. Clone este repositório.
+* Para rodar o programa:
+`./main`
 
-2. Abra o terminal e mude para a localização do mesmo utilizando o comando `cd`.
-
-* Por exemplo: se o repositório está em C:/, no Windows, acesse-o com `cd C:/genetic-algorithm`.
-
-3. Execute este comando para compilar os códigos fonte e gerar o executável:
-
-* `gcc -Wall headers/* src/* main.c -o main`
-
-4. Por fim, basta iniciar o programa:
-`main`
+* Para excluir os arquivos-objeto e o executável:
+`rm -f *.o main`
