@@ -3,8 +3,7 @@
 
 // Definições da estrutura e dos protótipos das funções para um indivíduo.
 
-typedef struct T_Individuo
-{
+typedef struct T_Individuo {
     int x;           // Valor de X.
     int y;           // Valor de Y;
     int negativoX;   // Valor para definir se o valor de X é negativo ou não.

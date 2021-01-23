@@ -6,8 +6,7 @@
 // Inclui o arquivo das definições de um indivíduo.
 #include "individuo.h"
 
-typedef struct T_Populacao
-{
+typedef struct T_Populacao {
     Individuo **individuos; // Array de indivíduos.
     int somatorioFitness;   // Somatório da função fitness de toda população.
 } Populacao;
