@@ -13,7 +13,7 @@
 * Seleção por torneio.
 * 15 gerações.
 
-**Comandos:**
+**Comandos (Linux):**
 
 ```bash
 # Para compilar o programa e gerar o executável:
@@ -25,3 +25,5 @@ gcc -Wall -c src/* && gcc *.o -o main -lm
 # Para excluir os arquivos-objeto e o executável:
 rm -f *.o main
 ```
+
+* O projeto também poderá ser executado em IDEs, como CodeBlocks e Dev C++.
