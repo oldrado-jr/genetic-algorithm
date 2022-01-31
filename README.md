@@ -15,11 +15,13 @@
 
 **Comandos:**
 
-* Para compilar o programa e gerar o executável:
-`gcc -Wall -c src/* && gcc *.o -o main -lm`
+```bash
+# Para compilar o programa e gerar o executável:
+gcc -Wall -c src/* && gcc *.o -o main -lm
 
-* Para rodar o programa:
-`./main`
+# Para rodar o programa:
+./main
 
-* Para excluir os arquivos-objeto e o executável:
-`rm -f *.o main`
+# Para excluir os arquivos-objeto e o executável:
+rm -f *.o main
+```
