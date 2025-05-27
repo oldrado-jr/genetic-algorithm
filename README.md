@@ -1,6 +1,6 @@
 # genetic-algorithm
 
-**Implementação de um algoritmo genético para a disciplina de Inteligência Artificial.**
+**Implementação de um algoritmo genético em C, para a disciplina de Inteligência Artificial, durante o Bacharelado em Sistemas de Informação, no Cefet/RJ.**
 
 **Detalhes do algoritmo genético:**
 
